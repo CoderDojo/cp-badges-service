@@ -28,5 +28,5 @@ function callback(err, result) {
 
 seneca.act({
     role: 'cd-badges',
-    cmd: 'list'
+    cmd: 'list-badges'
 }, callback);
