@@ -2,39 +2,44 @@
 
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var request = require('request');
 var jws = require('jws');
+var startTestApi = require('./utils/test-server');
 
 
 describe('listBadges', function() {
     var sandbox;
     var clock;
-    var requestDefaultsStub;
-    var requestWithDefaultsStub;
     var jwsSignStub;
     var resource = '/systems/coderdojo/badges';
-    var dummyBaseUrl = 'http://someurl.com';
+    var dummyBaseUrl = 'http://localhost:3000';
     var dummyToken = 'dummyToken';
     var dummySecret = 'dummySecret';
     var now = 1433288850689;
-    var onListBadgesStub;
+    var testApi;
+    var listBadges;
+    var checkRequestStub;
 
+
+    before(function(done) {
+        testApi = startTestApi(done);
+    });
+
+    after(function(done) {
+        testApi.server.close(done);
+    });
 
     beforeEach(function() {
         sandbox = sinon.sandbox.create();
         clock = sinon.useFakeTimers(now);
 
-        onListBadgesStub = sandbox.stub();
-        requestWithDefaultsStub = sandbox.stub();
-        requestDefaultsStub = sandbox.stub(request, 'defaults').returns(requestWithDefaultsStub);
         jwsSignStub = sandbox.stub(jws, 'sign').returns(dummyToken);
 
-        var listBadges = require('../lib/list-badges')({
+        checkRequestStub = sandbox.stub(testApi, 'checkRequest');
+
+        listBadges = require('../lib/list-badges')({
             apiBaseUrl: dummyBaseUrl,
             apiSecret: dummySecret
         });
-
-        listBadges(null, onListBadgesStub);
     });
 
 
@@ -44,25 +49,21 @@ describe('listBadges', function() {
     });
 
 
-    describe('request defaults settings', function() {
-        it('sets the baseUrl', function() {
-            expect(requestDefaultsStub.args[0][0].baseUrl).to.equal(dummyBaseUrl);
-        });
-    });
-
-
     describe('request', function() {
-        it('sets the resource as uri value', function() {
-            expect(requestWithDefaultsStub.args[0][0].uri).to.equal(resource);
+
+        beforeEach(function(done) {
+            listBadges(null, done);
         });
 
-        it('sets the method to GET', function() {
-            expect(requestWithDefaultsStub.args[0][0].method).to.equal('GET');
+        it('makes a GET request to /systems/coderdojo/badges', function() {
+            expect(checkRequestStub.args[0][0].method).to.equal('GET');
+            expect(checkRequestStub.args[0][0].url).to.equal(resource);
         });
+
 
         describe('request header', function() {
             it('sets the Authorization header', function() {
-                expect(requestWithDefaultsStub.args[0][0].headers.Authorization)
+                expect(checkRequestStub.args[0][0].headers.authorization)
                     .to.equal('JWT token="' + dummyToken + '"');
             });
 
@@ -88,26 +89,37 @@ describe('listBadges', function() {
 
 
     describe('response', function() {
-        it('passes the error to the callback', function() {
-            var error = new Error();
 
-            var callback = requestWithDefaultsStub.args[0][1];
-            callback(error);
+        var testApiTestResponseStub;
 
-            expect(onListBadgesStub.args[0][0]).to.equal(error);
+        beforeEach(function() {
+            testApiTestResponseStub = sandbox.stub(testApi, 'getTestResponse');
         });
 
-        it('passes the data to the callback', function() {
-            var error = null;
-            var data = {
-                result: [1, 2, 3]
-            };
+        it('passes the error to the callback', function(done) {
+            testApiTestResponseStub.returns({
+                statusCode: 500,
+                data: {}
+            });
 
-            var callback = requestWithDefaultsStub.args[0][1];
-            callback(error, data);
-
-            expect(onListBadgesStub.args[0][0]).to.equal(error);
-            expect(onListBadgesStub.args[0][1]).to.equal(data);
+            listBadges(null, function(err, res) {
+                expect(err).to.exist;
+                done();
+            });
         });
+
+        it('passes the data to the callback', function(done) {
+            testApiTestResponseStub.returns({
+                statusCode: 200,
+                data: {}
+            });
+
+            listBadges(null, function(err, res) {
+                expect(err).to.not.exist;
+                expect(res).to.exist;
+                done();
+            });
+        });
+
     });
 });
