@@ -1,6 +1,5 @@
 'use strict';
 
-
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var http = require('http');
@@ -13,13 +12,13 @@ var testApiResponse = {};
 var testApiStatusCode;
 var testApiStatusCode;
 
+
 var dummyBadge = {
     slug: 'slug'
 };
 
 
 describe('delete badge', function() {
-
     var sandbox;
     var clock;
     var now = 0;

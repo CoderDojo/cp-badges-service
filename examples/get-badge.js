@@ -28,6 +28,6 @@ function callback(err, result) {
 
 seneca.act({
     role: 'cd-badges',
-    cmd: 'get-badge',
+    cmd: 'getBadge',
     slug: 'slug'
 }, callback);

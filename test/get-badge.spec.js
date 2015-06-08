@@ -1,6 +1,5 @@
 'use strict';
 
-
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var http = require('http');
@@ -19,7 +18,6 @@ var dummyBadge = {
 
 
 describe('get badge', function() {
-
     var sandbox;
     var clock;
     var now = 0;
