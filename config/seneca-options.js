@@ -6,8 +6,8 @@ var senecaOptions = {
             port: process.env.BADGES_SERVICE_PORT || 10305
         }
     },
-    apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:8080',
-    apiSecret: process.env.API_SECRET || ''
+    apiBaseUrl: process.env.BADGEKIT_API_BASE_URL || 'http://localhost:8080',
+    apiSecret: process.env.BADGEKIT_API_SECRET || ''
 };
 
 
