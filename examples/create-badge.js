@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var util = require('util');
 var seneca = require('seneca')();
 var options = require('../config/seneca-options');

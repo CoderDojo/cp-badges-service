@@ -2,18 +2,12 @@
 
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var http = require('http');
 var jws = require('jws');
 var startTestApi = require('./utils/test-server');
-var getToken = require('../lib/utils/get-token');
 var getSha256Hash = require('../lib/utils/get-sha256-hash');
 
 
 var testApi;
-var testApiResponse = {};
-var testApiStatusCode;
-var testApiStatusCode;
-
 
 var badgeInfo = {
     name: 'name',

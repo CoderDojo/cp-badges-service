@@ -2,16 +2,11 @@
 
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var http = require('http');
 var jws = require('jws');
 var startTestApi = require('./utils/test-server');
 
 
 var testApi;
-var testApiResponse = {};
-var testApiStatusCode;
-var testApiStatusCode;
-
 
 var dummyBadge = {
     slug: 'slug'
