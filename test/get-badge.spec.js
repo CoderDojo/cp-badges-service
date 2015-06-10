@@ -136,7 +136,7 @@ describe('get badge', function() {
                 slug: dummyBadge.slug
             }, function(err, res) {
                 expect(err).to.not.exist;
-                expect(res.body).to.exist;
+                expect(res).to.exist;
                 done();
             });
         });
