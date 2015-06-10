@@ -12,8 +12,8 @@
   "author": "nearForm",
   "license": "MIT",
   "dependencies": {
-    "jws": "^3.0.0",
-    "request": "^2.57.0",
+    "jws": "3.0.0",
+    "request": "2.57.0",
     "seneca": "0.6.1"
   },
   "devDependencies": {
