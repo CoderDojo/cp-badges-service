@@ -1,0 +1,28 @@
+{
+  "name": "badges-service",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "mocha",
+    "lint": "eslint ."
+  },
+  "author": "nearForm",
+  "license": "MIT",
+  "dependencies": {
+    "jws": "3.0.0",
+    "request": "2.57.0",
+    "seneca": "0.6.1"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "eslint": "^0.22.1",
+    "mocha": "^2.2.5",
+    "sinon": "^1.14.1"
+  },
+  "engine": {
+    "node": "0.10.x"
+  }
+}
