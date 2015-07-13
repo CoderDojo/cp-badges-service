@@ -12,11 +12,12 @@
   "author": "nearForm",
   "license": "MIT",
   "dependencies": {
+    "async": "1.3.0",
     "jws": "3.0.0",
-    "request": "2.57.0",
-    "seneca": "0.6.1",
+    "lodash": "3.7.0",
     "moment": "2.10.3",
-    "lodash": "3.7.0"
+    "request": "2.57.0",
+    "seneca": "0.6.1"
   },
   "devDependencies": {
     "chai": "^2.3.0",
