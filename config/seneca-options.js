@@ -7,7 +7,8 @@ var senecaOptions = {
         }
     },
     apiBaseUrl: process.env.BADGEKIT_API_BASE_URL || 'http://localhost:8080',
-    apiSecret: process.env.BADGEKIT_API_SECRET || ''
+    apiSecret: process.env.BADGEKIT_API_SECRET || '',
+    claimCodePrefix: 'code-'
 };
 
 
