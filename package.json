@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "mocha",
+    "test": "echo \"Error: no test specified\"",
     "lint": "eslint ."
   },
   "author": "nearForm",
