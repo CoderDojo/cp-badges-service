@@ -1,18 +1,17 @@
 #! /bin/bash
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
-FILE="$DIR/config/$1".env && shift
-START="$DIR/$1" && shift
+FILE=$1
+START=$2
 USAGE="Usage: ./start.sh <config> <startscript> [startscript_opts]..."
 
 if [ ! -r $FILE ] ; then
-    echo "config file not found"
+    echo "config file not found: $1"
     echo $USAGE
     exit 1
 fi
 
 if [ ! -r $START ] ; then
-    echo "start script not found"
+    echo "start script not found: $2"
     echo $USAGE
     exit 1
 fi
