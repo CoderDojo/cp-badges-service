@@ -3,8 +3,6 @@ os: linux
 files:
   - source: deploy/cp-badges-service.conf
     destination: /etc/init/
-  - source: deploy/cp-badges-service.env
-    destination: /etc/zen
   - source: /
     destination: /opt/zen/cp-badges-service
 
