@@ -51,6 +51,9 @@ var senecaOptions = {
   apiSecret: process.env.BADGEKIT_API_SECRET || '',
   claimCodePrefix: 'code-',
   timeout: 120000,
+  debug: {
+    undead: true
+  },
   log: log()
 };
 
