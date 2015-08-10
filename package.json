@@ -20,7 +20,7 @@
     "newrelic": "1.21.1",
     "openbadges-bakery": "1.0.4",
     "request": "2.58.0",
-    "seneca": "0.6.4"
+    "seneca": "git://github.com/thekemkid/seneca.git"
   },
   "devDependencies": {
     "chai": "2.3.0",
