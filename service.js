@@ -2,8 +2,8 @@
 
 if (process.env.NEW_RELIC_ENABLED === "true") require('newrelic');
 
-var seneca = require('seneca')();
 var options = require('./config/seneca-options');
+var seneca = require('seneca')(options);
 var cdBadges = require('./lib/cd-badges');
 
 seneca.options(options);
