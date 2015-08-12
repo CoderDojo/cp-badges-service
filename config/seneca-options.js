@@ -43,8 +43,9 @@ function log () {
 
 var senecaOptions = {
   transport: {
-    web: {
-      port: process.env.BADGES_SERVICE_PORT || 10305
+    type: 'tcp',
+    tcp: {
+      port: 10305
     }
   },
   apiBaseUrl: process.env.BADGEKIT_API_BASE_URL || 'http://localhost:8080',
