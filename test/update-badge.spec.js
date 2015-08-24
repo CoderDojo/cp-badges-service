@@ -5,7 +5,7 @@ var sinon = require('sinon');
 var jws = require('jws');
 var startTestApi = require('./utils/test-server');
 var getSha256Hash = require('../lib/utils/get-sha256-hash');
-
+var lab = exports.lab = require('lab').script();
 
 var testApi;
 
@@ -38,7 +38,7 @@ var badgeInfo = {
 };
 
 
-describe('update badge', function() {
+lab.experiment('update badge', function() {
 
     var sandbox;
     var clock;
@@ -51,16 +51,16 @@ describe('update badge', function() {
     var dummyToken = 'dummyToken';
     var dummySecret = 'dummySecret';
 
-    before(function(done) {
+    lab.before(function(done) {
         testApi = startTestApi(done);
     });
 
-    after(function(done) {
+    lab.after(function(done) {
         testApi.server.close(done);
     });
 
 
-    beforeEach(function() {
+    lab.beforeEach(function(done) {
         sandbox = sinon.sandbox.create();
 
         jwsSignStub = sandbox.stub(jws, 'sign').returns(dummyToken);
@@ -70,16 +70,19 @@ describe('update badge', function() {
             apiBaseUrl: dummyBaseUrl,
             apiSecret: dummySecret
         });
+
+        done();
     });
 
 
-    afterEach(function() {
+    lab.afterEach(function(done) {
         sandbox.restore();
+        done();
     });
 
 
-    describe('request', function() {
-        beforeEach(function(done) {
+    lab.experiment('request', function() {
+        lab.beforeEach(function(done) {
             clock = sinon.useFakeTimers(now);
             updateBadge({
                 slug: 'slug',
@@ -87,22 +90,25 @@ describe('update badge', function() {
             }, done);
         });
 
-        afterEach(function() {
+        lab.afterEach(function(done) {
             clock.restore();
+            done();
         });
 
-        it('makes a PUT request to /systems/coderdojo/badges/slug', function() {
+        lab.test('makes a PUT request to /systems/coderdojo/badges/slug', function(done) {
             expect(checkRequestStub.args[0][0].method).to.equal('PUT');
             expect(checkRequestStub.args[0][0].url).to.equal(resource + badgeInfo.slug);
+            done();
         });
 
-        describe('request header', function() {
-            it('sets the Authorization header', function() {
+        lab.experiment('request header', function() {
+            lab.test('sets the Authorization header', function(done) {
                 expect(checkRequestStub.args[0][0].headers.authorization)
                     .to.equal('JWT token="' + dummyToken + '"');
+                done();
             });
 
-            it('calls jws sign with claimData', function() {
+            lab.test('calls jws sign with claimData', function(done) {
                 var claimData = {
                     header: {
                         typ: 'JWT',
@@ -122,19 +128,22 @@ describe('update badge', function() {
                 };
 
                 expect(jwsSignStub.args[0][0]).to.deep.equal(claimData);
+
+                done();
             });
         });
     });
 
 
-    describe('response', function() {
+    lab.experiment('response', function() {
         var testApiTestResponseStub;
 
-        beforeEach(function() {
+        lab.beforeEach(function(done) {
             testApiTestResponseStub = sandbox.stub(testApi, 'getTestResponse');
+            done();
         });
 
-        it('passes the error to the callback', function(done) {
+        lab.test('passes the error to the callback', function(done) {
             testApiTestResponseStub.returns({
                 statusCode: 500,
                 data: {}
@@ -151,7 +160,7 @@ describe('update badge', function() {
             );
         });
 
-        it('passes the data to the callback', function(done) {
+        lab.test('passes the data to the callback', function(done) {
             var error = null;
             var data = {
                 result: [1, 2, 3]
