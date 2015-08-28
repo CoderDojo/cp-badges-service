@@ -7,9 +7,9 @@ module.exports = function(options) {
   var plugin = 'cd-profiles';
   var badgeData = JSON.parse(fs.readFileSync(__dirname + '/../data/badgeData.json', 'utf8'));
 
-  seneca.add({role: plugin, cmd: 'list_query'}, cmd_list_query);
+  seneca.add({role: plugin, cmd: 'list'}, cmd_list);
 
-  function cmd_list_query(args, done) {
+  function cmd_list(args, done) {
     done(null, [{badges: badgeData}]);
   }
 
