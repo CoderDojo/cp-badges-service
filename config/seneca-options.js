@@ -50,6 +50,7 @@ var senecaOptions = {
   transport: {
     type: 'web',
     web: {
+      timeout: 120000,
       port: 10305
     }
   },
