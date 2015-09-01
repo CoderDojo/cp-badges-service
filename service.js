@@ -14,5 +14,5 @@ seneca.log.info(
 
 seneca.use(cdBadges);
 seneca.listen()
-  .client({type: 'tcp', port: 10301, pin: 'role:cd-dojos,cmd:*'})
-  .client({type: 'tcp', port: 10303, pin: 'role:cd-profiles,cmd:*'});
+  .client({type: 'web', port: 10301, pin: 'role:cd-dojos,cmd:*'})
+  .client({type: 'web', port: 10303, pin: 'role:cd-profiles,cmd:*'});
