@@ -6,7 +6,11 @@
   "main": "service.js",
   "scripts": {
     "start": "node .",
-    "test": "./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout; # Use this to enable linting: # --lint --lint-errors-threshold 340 --lint-warnings-threshold 100"
+    "lint": "./node_modules/.bin/semistandard newrelic.js service.js lib",
+    "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout; # Use this to enable linting: # --lint --lint-errors-threshold 340 --lint-warnings-threshold 100"
+  },
+  "precommit" : {
+    "tasks" : ["npm test"]
   },
   "author": "nearForm",
   "license": "MIT",
@@ -18,13 +22,15 @@
     "moment": "2.10.3",
     "newrelic": "1.21.1",
     "openbadges-bakery": "1.0.4",
+    "precommit": "1.1.5",
     "request": "2.58.0",
     "seneca": "git://github.com/thekemkid/seneca.git"
   },
   "devDependencies": {
     "chai": "2.3.0",
-    "sinon": "1.14.1",
-    "lab": "5.15.1"
+    "lab": "5.15.1",
+    "semistandard": "7.0.2",
+    "sinon": "1.14.1"
   },
   "engine": {
     "node": "0.10.x"

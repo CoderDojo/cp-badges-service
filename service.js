@@ -1,6 +1,6 @@
 'use strict';
 
-if (process.env.NEW_RELIC_ENABLED === "true") require('newrelic');
+if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
 var options = require('./config/seneca-options');
 var seneca = require('seneca')(options);
