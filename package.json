@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node .",
     "lint": "./node_modules/.bin/semistandard newrelic.js service.js lib",
-    "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout; # Use this to enable linting: # --lint --lint-errors-threshold 340 --lint-warnings-threshold 100"
+    "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout"
   },
   "precommit" : {
     "tasks" : ["npm test"]
