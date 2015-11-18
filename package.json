@@ -6,12 +6,12 @@
   "main": "service.js",
   "scripts": {
     "start": "node .",
-    "lint": "./node_modules/.bin/semistandard newrelic.js service.js lib",
+    "lint": "./node_modules/.bin/semistandard *.js config/config.js lib",
     "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout"
   },
-  "precommit" : {
-    "tasks" : ["npm test"]
-  },
+  "pre-commit": [
+    "test"
+  ],
   "author": "nearForm",
   "license": "MIT",
   "dependencies": {
@@ -22,14 +22,14 @@
     "moment": "2.10.3",
     "newrelic": "1.21.1",
     "openbadges-bakery": "1.0.4",
-    "precommit": "1.1.5",
     "request": "2.58.0",
-    "seneca": "git://github.com/thekemkid/seneca.git"
+    "seneca": "0.7.2"
   },
   "devDependencies": {
     "chai": "2.3.0",
     "lab": "5.15.1",
-    "semistandard": "7.0.2",
+    "pre-commit": "1.1.2",
+    "semistandard": "7.0.3",
     "sinon": "1.14.1"
   },
   "engine": {
