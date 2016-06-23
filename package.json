@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "1.3.0",
-    "cp-permissions": "git://github.com/wardormeur/cp-permissions",
+    "cp-permissions": "git+https://github.com/Wardormeur/cp-permissions.git",
     "jws": "3.0.0",
     "le_node": "1.1.0",
     "lodash": "3.7.0",
