@@ -13,7 +13,7 @@ seneca.log.info(
 );
 
 seneca.use(cdBadges);
-seneca.use(require('cp-permissions'), {
+seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
 });
 seneca.listen()
