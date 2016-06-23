@@ -13,6 +13,9 @@ seneca.log.info(
 );
 
 seneca.use(cdBadges);
+seneca.use(require('cp-permissions'), {
+  config: __dirname + '/config/permissions'
+});
 seneca.listen()
   .client({type: 'web', port: 10301, pin: 'role:cd-dojos,cmd:*'})
   .client({type: 'web', port: 10303, pin: 'role:cd-profiles,cmd:*'})
