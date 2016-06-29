@@ -12,8 +12,15 @@
   "pre-commit": [
     "test"
   ],
-  "author": "nearForm",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CoderDojo/cp-badges-service.git"
+  },
+  "author": "CoderDojo Foundation",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CoderDojo/community-platform/issues"
+  },
   "dependencies": {
     "async": "1.3.0",
     "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#0.0.1",
