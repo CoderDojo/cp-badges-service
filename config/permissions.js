@@ -23,10 +23,11 @@ module.exports = function () {
 
       'acceptBadge': [{
         role: 'basic-user',
-        customValidator: [{
-          role: 'cd-badges',
-          cmd: 'ownBadge'
-        }]
+        //  TODO : this is buggy, it seems the userId in the badge is not set making the validation not working
+        // customValidator: [{
+        //   role: 'cd-badges',
+        //   cmd: 'ownBadge'
+        // }]
       }],
       //  NOTE: Must be defined by visibility ?
       'loadUserBadges': [{
