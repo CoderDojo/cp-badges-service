@@ -6,6 +6,8 @@ if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
 var options = require('./config/seneca-options');
 var seneca = require('seneca')(options);
+var log = require('cp-logs-lib')({name: 'cp-badges-service', level: 'warn'});
+options.log = log.log;
 var cdBadges = require('./lib/cd-badges');
 
 seneca.options(options);
