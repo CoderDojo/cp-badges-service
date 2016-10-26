@@ -16,8 +16,7 @@ module.exports = function () {
         role: 'basic-user',
         customValidator: [{
           role: 'cd-dojos',
-          cmd: 'have_permissions',
-          perm: 'dojo-admin'
+          cmd: 'can_award_badge'
         }]
       }],
 
