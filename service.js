@@ -1,22 +1,23 @@
-'use strict';
 process.setMaxListeners(0);
 require('events').EventEmitter.prototype._maxListeners = 100;
 
 if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
 
-var options = require('./config/seneca-options');
-var seneca = require('seneca')(options);
-var log = require('cp-logs-lib')({ name: 'cp-badges-service', level: 'warn' });
+const options = require('./config/seneca-options');
+const seneca = require('seneca')(options);
+const log = require('cp-logs-lib')({ name: 'cp-badges-service', level: 'warn' });
+
 options.log = log.log;
-var cdBadges = require('./lib/cd-badges');
+const cdBadges = require('./lib/cd-badges');
 
 seneca.options(options);
 seneca.log.info('Seneca options', JSON.stringify(options, null, 4));
 
 seneca.use(cdBadges);
 seneca.use(require('cp-permissions-plugin'), {
-  config: __dirname + '/config/permissions',
+  config: `${__dirname}/config/permissions`,
 });
+
 seneca
   .listen()
   .client({
