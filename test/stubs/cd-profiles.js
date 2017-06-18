@@ -1,11 +1,11 @@
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-module.exports = function(options) {
-  var seneca = this;
-  var plugin = 'cd-profiles';
-  var badgeData = JSON.parse(fs.readFileSync(__dirname + '/../data/badgeData.json', 'utf8'));
+module.exports = function() {
+  const seneca = this;
+  const plugin = 'cd-profiles';
+  const badgeData = JSON.parse(fs.readFileSync(__dirname + '/../data/badgeData.json', 'utf8'));
 
   seneca.add({role: plugin, cmd: 'list'}, cmd_list);
 
@@ -14,6 +14,6 @@ module.exports = function(options) {
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
 };

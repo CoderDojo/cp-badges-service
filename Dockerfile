@@ -1,3 +1,4 @@
+FROM node:carbon-alpine
 LABEL maintainer="CoderDojo Foundation <webteam@coderdojo.org>"
 RUN apk add --update git make gcc g++ python && \
     mkdir -p /usr/src/app
