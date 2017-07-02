@@ -1,11 +1,10 @@
-'use strict';
-
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const jws = require('jws');
 const startTestApi = require('./utils/test-server');
 const getSha256Hash = require('../lib/utils/get-sha256-hash');
-const lab = exports.lab = require('lab').script();
+const lab = require('lab').script();
+exports.lab = require('lab').script();
 
 let testApi;
 
@@ -50,25 +49,25 @@ lab.experiment('create badge', () => {
   const dummyToken = 'dummyToken';
   const dummySecret = 'dummySecret';
 
-  lab.before((done) => {
+  lab.before(done => {
     testApi = startTestApi(done);
   });
 
-  lab.after((done) => {
+  lab.after(done => {
     testApi.server.close(done);
   });
 
 
-  lab.beforeEach((done) => {
+  lab.beforeEach(done => {
     sandbox = sinon.sandbox.create();
 
     jwsSignStub = sandbox.stub(jws, 'sign').returns(dummyToken);
     checkRequestStub = sandbox.stub(testApi, 'checkRequest');
     testApiTestResponseStub = sandbox.stub(testApi, 'getTestResponse')
-            .returns({
-              statusCode: 201,
-              data      : [1, 2, 3],
-            });
+      .returns({
+        statusCode: 201,
+        data      : [1, 2, 3],
+      });
 
     createBadge = require('../lib/create-badge')({
       apiBaseUrl: dummyBaseUrl,
@@ -79,39 +78,39 @@ lab.experiment('create badge', () => {
   });
 
 
-  lab.afterEach((done) => {
+  lab.afterEach(done => {
     sandbox.restore();
     done();
   });
 
 
   lab.experiment('request', () => {
-    lab.beforeEach((done) => {
+    lab.beforeEach(done => {
       clock = sinon.useFakeTimers(now);
       createBadge({
-        badgeInfo: badgeInfo,
+        badgeInfo,
       }, done);
     });
 
-    lab.afterEach((done) => {
+    lab.afterEach(done => {
       clock.restore();
       done();
     });
 
-    lab.test('makes a POST request to /systems/coderdojo/badges', (done) => {
+    lab.test('makes a POST request to /systems/coderdojo/badges', done => {
       expect(checkRequestStub.args[0][0].method).to.equal('POST');
       expect(checkRequestStub.args[0][0].url).to.equal(resource);
       done();
     });
 
     lab.experiment('request header', () => {
-      lab.test('sets the Authorization header', (done) => {
+      lab.test('sets the Authorization header', done => {
         expect(checkRequestStub.args[0][0].headers.authorization)
-                    .to.equal('JWT token="' + dummyToken + '"');
+                    .to.equal(`JWT token="${dummyToken}"`);
         done();
       });
 
-      lab.test('calls jws sign with claimData', (done) => {
+      lab.test('calls jws sign with claimData', done => {
         const claimData = {
           header: {
             typ: 'JWT',
@@ -138,30 +137,28 @@ lab.experiment('create badge', () => {
 
 
   lab.experiment('response', () => {
-    lab.test('passes the error to the callback', (done) => {
+    lab.test('passes the error to the callback', done => {
       testApiTestResponseStub.returns({
         statusCode: 500,
         data      : {},
       });
 
       createBadge({
-        badgeInfo: badgeInfo,
-      }, (err) => {
+        badgeInfo,
+      }, err => {
         expect(err).to.exist;
         done();
       });
     });
 
-    lab.test('passes the data to the callback', (done) => {
+    lab.test('passes the data to the callback', done => {
       createBadge({
-        badgeInfo: badgeInfo,
-      },
-                (err, res) => {
-                  expect(err).to.not.exist;
-                  expect(res).to.exist;
-                  done();
-                }
-            );
+        badgeInfo,
+      }, (err, res) => {
+        expect(err).to.not.exist;
+        expect(res).to.exist;
+        done();
+      });
     });
   });
 });

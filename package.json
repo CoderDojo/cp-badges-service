@@ -10,11 +10,12 @@
     "lint": "eslint .",
     "fix": "eslint . --fix",
     "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout",
-    "dev": "nodemon service.js"
+    "dev": "nodemon service.js",
+    "precommit": "lint-staged && yarn test"
   },
-  "pre-commit": [
-    "test"
-  ],
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"]
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/CoderDojo/cp-badges-service.git"
@@ -25,29 +26,33 @@
     "url": "https://github.com/CoderDojo/community-platform/issues"
   },
   "dependencies": {
-    "async": "1.3.0",
+    "async": "^2.5.0",
     "cp-logs-lib": "git://github.com/CoderDojo/cp-logs-lib#1.1.0",
     "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
-    "jws": "3.0.0",
-    "le_node": "1.1.0",
-    "lodash": "3.7.0",
-    "moment": "2.10.3",
-    "newrelic": "1.21.1",
-    "openbadges-bakery": "1.0.4",
-    "request": "2.58.0",
-    "seneca": "^3.3.0"
+    "jws": "^3.1.4",
+    "le_node": "^1.7.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "newrelic": "^1.40.0",
+    "openbadges-bakery": "^1.0.5",
+    "request": "^2.81.0",
+    "seneca": "^3.4.0"
   },
   "devDependencies": {
-    "chai": "2.3.0",
     "nodemon": "^1.11.0",
-    "eslint": "3.19.0",
+    "chai": "^4.0.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.2",
     "eslint-config-standard": "10.2.1",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "3.0.1",
-    "lab": "^14.0.1",
-    "pre-commit": "1.1.2",
-    "sinon": "1.14.1"
+    "husky": "^0.14.2",
+    "lab": "^14.1.0",
+    "lint-staged": "^4.0.0",
+    "sinon": "^2.3.6"
   }
 }

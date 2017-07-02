@@ -1,10 +1,9 @@
-'use strict';
-
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const jws = require('jws');
 const startTestApi = require('./utils/test-server');
-const lab = exports.lab = require('lab').script();
+const lab = require('lab').script();
+exports.lab = require('lab').script();
 
 lab.experiment('listBadges', () => {
   let sandbox;
@@ -20,15 +19,15 @@ lab.experiment('listBadges', () => {
   let checkRequestStub;
 
 
-  lab.before((done) => {
+  lab.before(done => {
     testApi = startTestApi(done);
   });
 
-  lab.after((done) => {
+  lab.after(done => {
     testApi.server.close(done);
   });
 
-  lab.beforeEach((done) => {
+  lab.beforeEach(done => {
     sandbox = sinon.sandbox.create();
     clock = sinon.useFakeTimers(now);
 
@@ -44,7 +43,7 @@ lab.experiment('listBadges', () => {
   });
 
 
-  lab.afterEach((done) => {
+  lab.afterEach(done => {
     clock.restore();
     sandbox.restore();
     done();
@@ -52,12 +51,11 @@ lab.experiment('listBadges', () => {
 
 
   lab.experiment('request', () => {
-
-    lab.beforeEach((done) => {
+    lab.beforeEach(done => {
       listBadges({}, done);
     });
 
-    lab.test('makes a GET request to /systems/coderdojo/badges', (done) => {
+    lab.test('makes a GET request to /systems/coderdojo/badges', done => {
       expect(checkRequestStub.args[0][0].method).to.equal('GET');
       expect(checkRequestStub.args[0][0].url).to.equal(resource);
       done();
@@ -65,13 +63,13 @@ lab.experiment('listBadges', () => {
 
 
     lab.experiment('request header', () => {
-      lab.test('sets the Authorization header', (done) => {
+      lab.test('sets the Authorization header', done => {
         expect(checkRequestStub.args[0][0].headers.authorization)
-                    .to.equal('JWT token="' + dummyToken + '"');
+                    .to.equal(`JWT token="${dummyToken}"`);
         done();
       });
 
-      lab.test('calls jws sign with claimData', (done) => {
+      lab.test('calls jws sign with claimData', done => {
         const claimData = {
           header: {
             typ: 'JWT',
@@ -94,27 +92,26 @@ lab.experiment('listBadges', () => {
 
 
   lab.experiment('response', () => {
-
     let testApiTestResponseStub;
 
-    lab.beforeEach((done) => {
+    lab.beforeEach(done => {
       testApiTestResponseStub = sandbox.stub(testApi, 'getTestResponse');
       done();
     });
 
-    lab.test('passes the error to the callback', (done) => {
+    lab.test('passes the error to the callback', done => {
       testApiTestResponseStub.returns({
         statusCode: 500,
         data      : {},
       });
 
-      listBadges({}, (err) => {
+      listBadges({}, err => {
         expect(err).to.exist;
         done();
       });
     });
 
-    lab.test('passes the data to the callback', (done) => {
+    lab.test('passes the data to the callback', done => {
       testApiTestResponseStub.returns({
         statusCode: 200,
         data      : {},
@@ -126,6 +123,5 @@ lab.experiment('listBadges', () => {
         done();
       });
     });
-
   });
 });

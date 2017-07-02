@@ -1,5 +1,3 @@
-'use strict';
-
 const senecaOptions = {
   transport: {
     type: 'web',
@@ -12,8 +10,13 @@ const senecaOptions = {
   apiSecret      : process.env.BADGEKIT_API_SECRET || '',
   claimCodePrefix: 'code-',
   timeout        : 120000,
-  strict         : { add: false, result: false },
-  actcache       : { active: false },
+  strict         : {
+    add   : false,
+    result: false,
+  },
+  actcache: {
+    active: false,
+  },
 };
 
 module.exports = senecaOptions;

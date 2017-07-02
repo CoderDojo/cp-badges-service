@@ -1,12 +1,9 @@
-'use strict';
-
 const http = require('http');
 
 function startTestApi(callback) {
-
   const testApi = {
-    checkRequest   : function() {},
-    getTestResponse: function() {
+    checkRequest() {},
+    getTestResponse() {
       return {
         statusCode: 200,
         data      : {},

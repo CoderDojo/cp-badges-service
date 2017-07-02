@@ -1,7 +1,7 @@
 process.setMaxListeners(0);
-require('events').EventEmitter.prototype._maxListeners = 100;
+require('events').EventEmitter.prototype._maxListeners = 100; // eslint-disable-line no-underscore-dangle
 
-if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic');
+if (process.env.NEW_RELIC_ENABLED === 'true') require('newrelic'); // eslint-disable-line global-require
 
 const options = require('./config/seneca-options');
 const seneca = require('seneca')(options);
@@ -11,7 +11,10 @@ options.log = log.log;
 const cdBadges = require('./lib/cd-badges');
 
 seneca.options(options);
-seneca.log.info('Seneca options', JSON.stringify(options, null, 4));
+seneca.log.info(
+  'Seneca options',
+  JSON.stringify(options, null, 4),
+);
 
 seneca.use(cdBadges);
 seneca.use(require('cp-permissions-plugin'), {
@@ -26,8 +29,7 @@ seneca
     port: 10301,
     pin: { role: 'cd-dojos', cmd: '*' },
   })
-  .client({
-    type: 'web',
+  .client({ type: 'web',
     host: process.env.CD_USERS || 'localhost',
     port: 10303,
     pin: { role: 'cd-profiles', cmd: '*' },
