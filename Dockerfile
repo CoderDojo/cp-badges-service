@@ -1,7 +1,7 @@
 FROM mhart/alpine-node:0.10.38
 MAINTAINER butlerx <butlerx@notthe.cloud>
 
-RUN apk add --update  git make gcc g++ python postgresql-client && \
+RUN apk add --update git make gcc g++ python && \
     mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 ADD . /usr/src/app

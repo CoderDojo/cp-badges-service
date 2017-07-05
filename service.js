@@ -21,7 +21,27 @@ seneca.use(require('cp-permissions-plugin'), {
   config: __dirname + '/config/permissions'
 });
 seneca.listen()
-  .client({type: 'web', host: process.env.CD_DOJOS || 'localhost', port: 10301, pin: {role: 'cd-dojos', cmd: '*'}})
-  .client({type: 'web', host: process.env.CD_USERS || 'localhost', port: 10303, pin: {role: 'cd-profiles', cmd: '*'}})
-  .client({type: 'web', host: process.env.CD_USERS || 'localhost', port: 10303, pin: {role: 'cd-users', cmd: '*'}})
-  .client({type: 'web', host: process.env.CD_EVENTS || 'localhost', port: 10306, pin: {role: 'cd-events', cmd: '*'}});
+  .client({
+    type: 'web',
+    host: process.env.CD_DOJOS || 'localhost',
+    port: 10301,
+    pin : { role: 'cd-dojos', cmd: '* '}
+  })
+  .client({
+    type: 'web',
+    host: process.env.CD_USERS || 'localhost',
+    port: 10303,
+    pin : { role: 'cd-profiles', cmd: '*' }
+  })
+  .client({
+    type: 'web',
+    host: process.env.CD_USERS || 'localhost',
+    port: 10303,
+    pin : { role: 'cd-users', cmd: '*' }
+  })
+  .client({
+    type: 'web',
+    host: process.env.CD_EVENTS || 'localhost',
+    port: 10306,
+    pin : { role: 'cd-events', cmd: '*' }
+  });
