@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:0.10.48
 MAINTAINER butlerx <butlerx@notthe.cloud>
-RUN apk add --update git build-base python postgresql-client && \
+RUN apk add --update git build-base python && \
     npm install -g nodemon && \
     mkdir -p /usr/src/app
 ADD  docker-entrypoint.sh /usr/src
