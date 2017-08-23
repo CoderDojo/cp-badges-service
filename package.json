@@ -8,7 +8,8 @@
     "start": "node .",
     "dev": "nodemon .",
     "lint": "./node_modules/.bin/semistandard *.js config/config.js lib",
-    "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout"
+    "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout",
+    "dev": "nodemon service.js"
   },
   "pre-commit": [
     "test"
@@ -38,7 +39,7 @@
   "devDependencies": {
     "chai": "2.3.0",
     "lab": "14.x",
-    "nodemon": "1.11.0",
+    "nodemon": "^1.11.0",
     "pre-commit": "1.1.2",
     "semistandard": "7.0.3",
     "sinon": "1.14.1"
