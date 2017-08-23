@@ -1,6 +1,4 @@
-FROM node:8-alpine
-MAINTAINER CoderDojo Foundation <webteam@coderdojo.org>
-ARG DEP_VERSION=latest
+LABEL maintainer="CoderDojo Foundation <webteam@coderdojo.org>"
 RUN apk add --update git make gcc g++ python && \
     mkdir -p /usr/src/app
 WORKDIR /usr/src/app

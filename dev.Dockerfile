@@ -1,5 +1,5 @@
-FROM node:8-alpine
-MAINTAINER butlerx <butlerx@notthe.cloud>
+FROM node:carbon-alpine
+LABEL maintainer="butlerx <cian@coderdojo.org>"
 WORKDIR /usr/src/app
 ENV NODE_ENV development
 RUN apk add --update git build-base python && \
