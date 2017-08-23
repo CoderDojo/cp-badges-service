@@ -1,15 +1,13 @@
-FROM mhart/alpine-node:0.10
-MAINTAINER nearForm <info@nearform.com>
-
-#RUN apk-install git make gcc g++ python
-RUN apk-install git
-
-RUN mkdir -p /usr/src/app /usr/src/lib /usr/src/config
+FROM mhart/alpine-node:0.10.48
+MAINTAINER butlerx <butlerx@notthe.cloud>
+ARG DEP_VERSION=latest
+RUN apk add --update git make gcc g++ python && \
+    mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-  
-COPY package.json /usr/src/app/
-COPY lib /usr/src/app/lib/
-COPY config /usr/src/app/config/
-COPY *.js /usr/src/app/
-RUN npm install --production && rm -rf /root/.npm  
-
+ADD . /usr/src/app
+RUN npm install --production && \
+    npm install cp-translations@$DEP_VERSION && \
+    apk del make gcc g++ python && \
+    rm -rf /tmp/* /root/.npm /root/.node-gyp
+EXPOSE 10305
+CMD ["node", "service.js"]
