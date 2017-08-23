@@ -10,4 +10,4 @@ RUN npm install --production && \
     apk del make gcc g++ python && \
     rm -rf /tmp/* /root/.npm /root/.node-gyp
 EXPOSE 10305
-CMD ["node", "service.js"]
+CMD ["npm", "start"]
