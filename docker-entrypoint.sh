@@ -1,4 +1,6 @@
 #! /usr/bin/env sh
 cd /usr/src/app || exit
-npm install
+if [ ! -d "node_modules" ]; then
+  npm install
+fi
 nodemon service.js
