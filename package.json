@@ -6,12 +6,11 @@
   "main": "service.js",
   "scripts": {
     "start": "node .",
+    "dev": "nodemon .",
     "lint": "./node_modules/.bin/semistandard *.js config/config.js lib",
     "test": "npm run lint && ./node_modules/.bin/lab --ignore __core-js_shared__ --flat --threshold 92 -r html -o ./coverage/coverage.html -r lcov -o ./coverage/lcov.info -r json -o ./coverage/coverage.json -r console -o stdout"
   },
-  "pre-commit": [
-    "test"
-  ],
+  "pre-commit": ["test"],
   "repository": {
     "type": "git",
     "url": "git://github.com/CoderDojo/cp-badges-service.git"
@@ -37,6 +36,7 @@
   "devDependencies": {
     "chai": "2.3.0",
     "lab": "5.15.1",
+    "nodemon": "^1.11.0",
     "pre-commit": "1.1.2",
     "semistandard": "7.0.3",
     "sinon": "1.14.1"
