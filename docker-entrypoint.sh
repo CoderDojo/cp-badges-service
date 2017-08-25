@@ -1,6 +1,7 @@
 #! /usr/bin/env sh
 
 set -e
+
 cd /usr/src/app || exit
 touch .yarn.sha1
 OLD_SHA=$(cat .yarn.sha1)
