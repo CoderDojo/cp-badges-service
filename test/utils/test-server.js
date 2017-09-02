@@ -6,19 +6,21 @@ function startTestApi(callback) {
     getTestResponse() {
       return {
         statusCode: 200,
-        data      : {},
+        data: {},
       };
     },
   };
 
-  testApi.server = http.createServer((req, res) => {
-    testApi.checkRequest(req);
-    res.setHeader('Content-Type', 'application/json');
+  testApi.server = http
+    .createServer((req, res) => {
+      testApi.checkRequest(req);
+      res.setHeader('Content-Type', 'application/json');
 
-    const testData = testApi.getTestResponse();
-    res.writeHead(testData.statusCode);
-    res.end(JSON.stringify(testData.data));
-  }).listen(3000, 'localhost', callback);
+      const testData = testApi.getTestResponse();
+      res.writeHead(testData.statusCode);
+      res.end(JSON.stringify(testData.data));
+    })
+    .listen(3000, 'localhost', callback);
 
   return testApi;
 }

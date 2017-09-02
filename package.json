@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "async": "^2.5.0",
-    "cp-logs-lib": "git://github.com/CoderDojo/cp-logs-lib#1.1.0",
-    "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
+    "cp-logs-lib": "CoderDojo/cp-logs-lib#1.1.0",
+    "cp-permissions-plugin": "CoderDojo/cp-permissions-plugin#1.0.2",
     "jws": "^3.1.4",
     "le_node": "^1.7.1",
     "lodash": "^4.17.4",
@@ -44,6 +44,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-config-standard": "10.2.1",
+    "eslint-plugin-chai-friendly": "^0.4.0",
     "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-node": "^4.2.2",

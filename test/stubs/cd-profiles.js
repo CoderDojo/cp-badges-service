@@ -5,9 +5,9 @@ function cdProfile() {
   const plugin = 'cd-profiles';
   const badgeData = JSON.parse(fs.readFileSync(`${__dirname}/../data/badgeData.json`, 'utf8'));
 
-  seneca.add({ role: plugin, cmd: 'list' }, cmd_list);
+  seneca.add({ role: plugin, cmd: 'list' }, cmdList);
 
-  function cmd_list(args, done) {
+  function cmdList(args, done) {
     done(null, [{ badges: badgeData }]);
   }
 

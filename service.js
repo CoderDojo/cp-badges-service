@@ -11,10 +11,7 @@ options.log = log.log;
 const cdBadges = require('./lib/cd-badges');
 
 seneca.options(options);
-seneca.log.info(
-  'Seneca options',
-  JSON.stringify(options, null, 4),
-);
+seneca.log.info('Seneca options', JSON.stringify(options, null, 4));
 
 seneca.use(cdBadges);
 seneca.use(require('cp-permissions-plugin'), {
@@ -27,22 +24,35 @@ seneca
     type: 'web',
     host: process.env.CD_DOJOS || 'localhost',
     port: 10301,
-    pin: { role: 'cd-dojos', cmd: '*' },
-  })
-  .client({ type: 'web',
-    host: process.env.CD_USERS || 'localhost',
-    port: 10303,
-    pin: { role: 'cd-profiles', cmd: '*' },
+    pin : {
+      role: 'cd-dojos',
+      cmd : '*',
+    },
   })
   .client({
     type: 'web',
     host: process.env.CD_USERS || 'localhost',
     port: 10303,
-    pin: { role: 'cd-users', cmd: '*' },
+    pin : {
+      role: 'cd-profiles',
+      cmd : '*',
+    },
+  })
+  .client({
+    type: 'web',
+    host: process.env.CD_USERS || 'localhost',
+    port: 10303,
+    pin : {
+      role: 'cd-users',
+      cmd : '*',
+    },
   })
   .client({
     type: 'web',
     host: process.env.CD_EVENTS || 'localhost',
     port: 10306,
-    pin: { role: 'cd-events', cmd: '*' },
+    pin : {
+      role: 'cd-events',
+      cmd : '*',
+    },
   });
