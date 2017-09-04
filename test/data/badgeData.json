@@ -1,68 +1,68 @@
 [
-    {
-        "id": 11,
-        "slug": "python-level-1a",
-        "name": "Python Level 1A",
-        "strapline": "python level 1",
-        "earnerDescription": "Python level 1 short description",
-        "consumerDescription": "Python level 1 short description 2",
-        "issuerUrl": "coderdojo.com",
-        "rubricUrl": "",
-        "timeValue": 0,
-        "timeUnits": "minutes",
-        "limit": 0,
-        "unique": 0,
-        "created": "2015-07-08T13:26:29.000Z",
-        "imageUrl": "http://52.17.20.218:80/images/badge/10",
-        "type": "",
-        "archived": false,
-        "system": {
-            "id": 1,
-            "slug": "coderdojo",
-            "url": "http://52.17.20.218",
-            "name": "CoderDojo",
-            "email": null,
-            "imageUrl": null,
-            "issuers": []
-        },
-        "criteriaUrl": "http://52.17.20.218:80/system/coderdojo/badge/python-level-1a/criteria",
-        "criteria": [
-            {
-                "id": 8,
-                "description": "python level 1",
-                "required": 0,
-                "note": ""
-            }
-        ],
-        "alignments": [],
-        "evidenceType": null,
-        "categories": [],
-        "tags": [
-            {
-                "id": 9,
-                "value": "programming"
-            },
-            {
-                "id": 10,
-                "value": "python"
-            }
-        ],
-        "milestones": [],
-        "status": "accepted",
-        "dateAccepted": "2015-08-24T09:44:52.127Z",
-        "assertion": {
-            "uid": "coderdojo-c615cdc2-416b-4a17-b199-6b8273948ffd11",
-            "recipient": {
-                "identity": "ninjaover13@gmail.com",
-                "type": "email",
-                "hashed": false
-            },
-            "badge": "http://badgekit.coderdojo.com:8080/public/systems/coderdojo/badges/python-level-1a",
-            "verify": {
-                "url": "http://localhost:8000/api/1.0/verify_badge/c615cdc2-416b-4a17-b199-6b8273948ffd/11/assertion",
-                "type": "hosted"
-            },
-            "issuedOn": "2015-08-24T09:44:52.127Z"
-        }
+  {
+    "id": 11,
+    "slug": "python-level-1a",
+    "name": "Python Level 1A",
+    "strapline": "python level 1",
+    "earnerDescription": "Python level 1 short description",
+    "consumerDescription": "Python level 1 short description 2",
+    "issuerUrl": "coderdojo.com",
+    "rubricUrl": "",
+    "timeValue": 0,
+    "timeUnits": "minutes",
+    "limit": 0,
+    "unique": 0,
+    "created": "2015-07-08T13:26:29.000Z",
+    "imageUrl": "http://52.17.20.218:80/images/badge/10",
+    "type": "",
+    "archived": false,
+    "system": {
+      "id": 1,
+      "slug": "coderdojo",
+      "url": "http://52.17.20.218",
+      "name": "CoderDojo",
+      "email": null,
+      "imageUrl": null,
+      "issuers": []
+    },
+    "criteriaUrl": "http://52.17.20.218:80/system/coderdojo/badge/python-level-1a/criteria",
+    "criteria": [
+      {
+        "id": 8,
+        "description": "python level 1",
+        "required": 0,
+        "note": ""
+      }
+    ],
+    "alignments": [],
+    "evidenceType": null,
+    "categories": [],
+    "tags": [
+      {
+        "id": 9,
+        "value": "programming"
+      },
+      {
+        "id": 10,
+        "value": "python"
+      }
+    ],
+    "milestones": [],
+    "status": "accepted",
+    "dateAccepted": "2015-08-24T09:44:52.127Z",
+    "assertion": {
+      "uid": "coderdojo-c615cdc2-416b-4a17-b199-6b8273948ffd11",
+      "recipient": {
+        "identity": "ninjaover13@gmail.com",
+        "type": "email",
+        "hashed": false
+      },
+      "badge": "http://badgekit.coderdojo.com:8080/public/systems/coderdojo/badges/python-level-1a",
+      "verify": {
+        "url": "http://localhost:8000/api/1.0/verify_badge/c615cdc2-416b-4a17-b199-6b8273948ffd/11/assertion",
+        "type": "hosted"
+      },
+      "issuedOn": "2015-08-24T09:44:52.127Z"
     }
+  }
 ]

@@ -1,28 +1,12 @@
 module.exports = () => ({
   'cd-badges': {
-    listBadges: [
-      {
-        role: 'none',
-      },
-    ],
+    listBadges: [{ role: 'none' }],
 
     //  NOTE: Must be defined by visibility ?
-    getBadge: [
-      {
-        role: 'none',
-      },
-    ],
+    getBadge: [{ role: 'none' }],
 
     sendBadgeApplication: [
-      {
-        role: 'basic-user',
-        customValidator: [
-          {
-            role: 'cd-dojos',
-            cmd: 'can_award_badge',
-          },
-        ],
-      },
+      { role: 'basic-user', customValidator: [{ role: 'cd-dojos', cmd: 'can_award_badge' }] },
     ],
 
     acceptBadge: [
@@ -37,46 +21,12 @@ module.exports = () => ({
       },
     ],
     //  NOTE: Must be defined by visibility ?
-    loadUserBadges: [
-      {
-        role: 'basic-user',
-      },
-    ],
-    loadBadgeCategories: [
-      {
-        role: 'none',
-      },
-    ],
-    loadBadgeByCode: [
-      {
-        role: 'none',
-      },
-    ],
-    claimBadge: [
-      {
-        role: 'basic-user',
-      },
-    ],
-    exportBadges: [
-      {
-        role: 'basic-user',
-        customValidator: [
-          {
-            role: 'cd-users',
-            cmd: 'is_self',
-          },
-        ],
-      },
-    ],
-    kpiNumberOfBadgesAwarded: [
-      {
-        role: 'cdf-admin',
-      },
-    ],
-    kpiNumberOfBadgesPublished: [
-      {
-        role: 'cdf-admin',
-      },
-    ],
+    loadUserBadges: [{ role: 'basic-user' }],
+    loadBadgeCategories: [{ role: 'none' }],
+    loadBadgeByCode: [{ role: 'none' }],
+    claimBadge: [{ role: 'basic-user' }],
+    exportBadges: [{ role: 'basic-user', customValidator: [{ role: 'cd-users', cmd: 'is_self' }] }],
+    kpiNumberOfBadgesAwarded: [{ role: 'cdf-admin' }],
+    kpiNumberOfBadgesPublished: [{ role: 'cdf-admin' }],
   },
 });

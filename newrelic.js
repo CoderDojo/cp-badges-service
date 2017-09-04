@@ -11,5 +11,8 @@ exports.config = {
   app_name: ['cp-badges-service'],
   agent_enabled: false, // set via NEW_RELIC_ENABLED for production
   license_key: '', // set via NEW_RELIC_LICENSE_KEY
-  filepath: '/tmp/newrelic_agent_badges.log',
+  logging: {
+    level: 'info',
+    filepath: '/tmp/newrelic_agent_badges.log',
+  },
 };

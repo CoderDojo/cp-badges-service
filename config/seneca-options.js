@@ -14,9 +14,7 @@ const senecaOptions = {
     add: false,
     result: false,
   },
-  actcache: {
-    active: false,
-  },
+  actcache: { active: false },
 };
 
 module.exports = senecaOptions;

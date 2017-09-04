@@ -5,9 +5,9 @@ set -e
 if [ "$GIT_BRANCH" = "master" ]; then
   DEP_VER=latest
   HOST=$PROD_HOST
-  echo "$PROD_CA_CERT" | base64 -i --decode > ca.pem
-  echo "$PROD_ADMIN_KEY" | base64 -i --decode > admin-key.pem
-  echo "$PROD_ADMIN_CERT" | base64 -i --decode > admin.pem
+  echo "$PROD_CA_CERT" | base64 -i --decode >ca.pem
+  echo "$PROD_ADMIN_KEY" | base64 -i --decode >admin-key.pem
+  echo "$PROD_ADMIN_CERT" | base64 -i --decode >admin.pem
 else
   exit 0
 fi

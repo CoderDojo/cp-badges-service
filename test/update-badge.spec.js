@@ -101,9 +101,7 @@ lab.experiment('update badge', () => {
 
     lab.experiment('request header', () => {
       lab.test('sets the Authorization header', (done) => {
-        expect(checkRequestStub.args[0][0].headers.authorization).to.equal(
-          `JWT token="${dummyToken}"`,
-        );
+        expect(checkRequestStub.args[0][0].headers.authorization).to.equal(`JWT token="${dummyToken}"`);
         done();
       });
 
