@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/cp-badges-service
     docker:
-      - image: node:8
+      - image: node:carbon
         environment:
           NODE_ENV: testing
     steps:
@@ -51,4 +51,3 @@ workflows:
             branches:
               only:
                 - master
-                - staging
