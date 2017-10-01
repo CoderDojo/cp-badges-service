@@ -37,7 +37,7 @@
   "devDependencies": {
     "chai": "2.3.0",
     "lab": "5.15.1",
-    "nodemon": "^1.11.0",
+    "nodemon": "1.11.0",
     "pre-commit": "1.1.2",
     "semistandard": "7.0.3",
     "sinon": "1.14.1"
