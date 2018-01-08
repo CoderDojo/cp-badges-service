@@ -1,186 +1,183 @@
-'use strict';
+exports.lab = require('lab').script();
 
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var jws = require('jws');
-var startTestApi = require('./utils/test-server');
-var getSha256Hash = require('../lib/utils/get-sha256-hash');
-var lab = exports.lab = require('lab').script();
+const lab = exports.lab;
+const { expect } = require('chai');
+const sinon = require('sinon');
+const jws = require('jws');
+const startTestApi = require('./utils/test-server');
+const getSha256Hash = require('../lib/utils/get-sha256-hash');
 
-var testApi;
+const dummyBaseUrl = 'http://localhost:3000';
+const dummySecret = 'dummySecret';
+const updateBadge = require('../lib/update-badge')({
+  apiBaseUrl: dummyBaseUrl,
+  apiSecret: dummySecret,
+});
 
-var badgeInfo = {
-    slug: 'slug',
-    name: 'name',
-    imageUrl: 'http://issuersite.com/badge.png',
-    unique: false,
-    criteriaUrl: 'http://issuersite.com/criteria',
-    earnerDescription: 'description for potential earners',
-    consumerDescription: 'description for consumers',
-    strapline: 'strapline',
-    issuerUrl: 'http://issuersite.com',
-    rubricUrl: 'http://issuersite.com/rubric',
-    timeValue: 10,
-    timeUnits: 'minutes',
-    evidenceType: 'URL',
-    limit: 5,
-    archived: false,
-    criteria: [{
-        id: 1,
-        description: 'criteria description',
-        required: 1,
-        note: 'note for assessor'
-    }],
-    type: 'badge type',
-    categories: [],
-    tags: [],
-    milestones: []
+let testApi;
+const seconds = sec => sec * 1000;
+
+const badgeInfo = {
+  slug: 'slug',
+  name: 'name',
+  imageUrl: 'http://issuersite.com/badge.png',
+  unique: false,
+  criteriaUrl: 'http://issuersite.com/criteria',
+  earnerDescription: 'description for potential earners',
+  consumerDescription: 'description for consumers',
+  strapline: 'strapline',
+  issuerUrl: 'http://issuersite.com',
+  rubricUrl: 'http://issuersite.com/rubric',
+  timeValue: 10,
+  timeUnits: 'minutes',
+  evidenceType: 'URL',
+  limit: 5,
+  archived: false,
+  criteria: [
+    {
+      id: 1,
+      description: 'criteria description',
+      required: 1,
+      note: 'note for assessor',
+    },
+  ],
+  type: 'badge type',
+  categories: [],
+  tags: [],
+  milestones: [],
 };
 
+lab.experiment('update badge', () => {
+  let sandbox;
+  let clock;
+  const now = 0;
+  let jwsSignStub;
+  let checkRequestStub;
+  const resource = '/systems/coderdojo/badges/';
+  const dummyToken = 'dummyToken';
 
-lab.experiment('update badge', function() {
+  lab.before((done) => {
+    testApi = startTestApi(done);
+  });
 
-    var sandbox;
-    var clock;
-    var now = 0;
-    var jwsSignStub;
-    var checkRequestStub;
-    var updateBadge;
-    var resource = '/systems/coderdojo/badges/';
-    var dummyBaseUrl = 'http://localhost:3000';
-    var dummyToken = 'dummyToken';
-    var dummySecret = 'dummySecret';
+  lab.after((done) => {
+    testApi.server.close(done);
+  });
 
-    lab.before(function(done) {
-        testApi = startTestApi(done);
+  lab.beforeEach((done) => {
+    sandbox = sinon.sandbox.create();
+    jwsSignStub = sandbox.stub(jws, 'sign').returns(dummyToken);
+    checkRequestStub = sandbox.stub(testApi, 'checkRequest');
+    done();
+  });
+
+  lab.afterEach((done) => {
+    sandbox.restore();
+    done();
+  });
+
+  lab.experiment('request', () => {
+    lab.beforeEach((done) => {
+      clock = sinon.useFakeTimers(now);
+      updateBadge(
+        {
+          slug: 'slug',
+          badgeInfo,
+        },
+        done,
+      );
     });
 
-    lab.after(function(done) {
-        testApi.server.close(done);
+    lab.afterEach((done) => {
+      clock.restore();
+      done();
     });
 
+    lab.test('makes a PUT request to /systems/coderdojo/badges/slug', (done) => {
+      expect(checkRequestStub.args[0][0].method).to.equal('PUT');
+      expect(checkRequestStub.args[0][0].url).to.equal(resource + badgeInfo.slug);
+      done();
+    });
 
-    lab.beforeEach(function(done) {
-        sandbox = sinon.sandbox.create();
+    lab.experiment('request header', () => {
+      lab.test('sets the Authorization header', (done) => {
+        expect(checkRequestStub.args[0][0].headers.authorization).to.equal(`JWT token="${dummyToken}"`);
+        done();
+      });
 
-        jwsSignStub = sandbox.stub(jws, 'sign').returns(dummyToken);
-        checkRequestStub = sandbox.stub(testApi, 'checkRequest');
+      lab.test('calls jws sign with claimData', (done) => {
+        const claimData = {
+          header: {
+            typ: 'JWT',
+            alg: 'HS256',
+          },
+          payload: {
+            key: 'master',
+            exp: Date.now() + seconds(60),
+            method: 'PUT',
+            path: resource + badgeInfo.slug,
+            body: {
+              alg: 'sha256',
+              hash: getSha256Hash(JSON.stringify(badgeInfo)),
+            },
+          },
+          secret: dummySecret,
+        };
 
-        updateBadge = require('../lib/update-badge')({
-            apiBaseUrl: dummyBaseUrl,
-            apiSecret: dummySecret
-        });
+        expect(jwsSignStub.args[0][0]).to.deep.equal(claimData);
 
         done();
+      });
+    });
+  });
+
+  lab.experiment('response', () => {
+    let testApiTestResponseStub;
+
+    lab.beforeEach((done) => {
+      testApiTestResponseStub = sandbox.stub(testApi, 'getTestResponse');
+      done();
     });
 
+    lab.test('passes the error to the callback', (done) => {
+      testApiTestResponseStub.returns({
+        statusCode: 500,
+        data: {},
+      });
 
-    lab.afterEach(function(done) {
-        sandbox.restore();
-        done();
+      updateBadge(
+        {
+          slug: 'slug',
+          badge: badgeInfo,
+        },
+        (err) => {
+          expect(err).to.exist;
+          done();
+        },
+      );
     });
 
+    lab.test('passes the data to the callback', (done) => {
+      const data = {
+        result: [1, 2, 3],
+      };
 
-    lab.experiment('request', function() {
-        lab.beforeEach(function(done) {
-            clock = sinon.useFakeTimers(now);
-            updateBadge({
-                slug: 'slug',
-                badgeInfo: badgeInfo
-            }, done);
-        });
+      testApiTestResponseStub.returns({
+        statusCode: 200,
+        data,
+      });
 
-        lab.afterEach(function(done) {
-            clock.restore();
-            done();
-        });
-
-        lab.test('makes a PUT request to /systems/coderdojo/badges/slug', function(done) {
-            expect(checkRequestStub.args[0][0].method).to.equal('PUT');
-            expect(checkRequestStub.args[0][0].url).to.equal(resource + badgeInfo.slug);
-            done();
-        });
-
-        lab.experiment('request header', function() {
-            lab.test('sets the Authorization header', function(done) {
-                expect(checkRequestStub.args[0][0].headers.authorization)
-                    .to.equal('JWT token="' + dummyToken + '"');
-                done();
-            });
-
-            lab.test('calls jws sign with claimData', function(done) {
-                var claimData = {
-                    header: {
-                        typ: 'JWT',
-                        alg: 'HS256'
-                    },
-                    payload: {
-                        key: 'master',
-                        exp: Date.now() + (1000 * 60),
-                        method: 'PUT',
-                        path: resource + badgeInfo.slug,
-                        body: {
-                            alg: 'sha256',
-                            hash: getSha256Hash(JSON.stringify(badgeInfo))
-                        }
-                    },
-                    secret: dummySecret
-                };
-
-                expect(jwsSignStub.args[0][0]).to.deep.equal(claimData);
-
-                done();
-            });
-        });
+      updateBadge(
+        {
+          slug: 'slug',
+          badge: badgeInfo,
+        },
+        (err, res) => {
+          expect(err).to.not.exist;
+          expect(res).to.exist;
+          done();
+        },
+      );
     });
-
-
-    lab.experiment('response', function() {
-        var testApiTestResponseStub;
-
-        lab.beforeEach(function(done) {
-            testApiTestResponseStub = sandbox.stub(testApi, 'getTestResponse');
-            done();
-        });
-
-        lab.test('passes the error to the callback', function(done) {
-            testApiTestResponseStub.returns({
-                statusCode: 500,
-                data: {}
-            });
-
-            updateBadge({
-                    slug: 'slug',
-                    badge: badgeInfo
-                },
-                function(err, res) {
-                    expect(err).to.exist;
-                    done();
-                }
-            );
-        });
-
-        lab.test('passes the data to the callback', function(done) {
-            var error = null;
-            var data = {
-                result: [1, 2, 3]
-            };
-
-            testApiTestResponseStub.returns({
-                statusCode: 200,
-                data: data
-            });
-
-            updateBadge({
-                    slug: 'slug',
-                    badge: badgeInfo
-                },
-                function(err, res) {
-                    expect(err).to.not.exist;
-                    expect(res).to.exist;
-                    done();
-                }
-            );
-        });
-    });
+  });
 });

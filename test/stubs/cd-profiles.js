@@ -1,19 +1,18 @@
-'use strict';
+const fs = require('fs');
 
-var fs = require('fs');
+function cdProfile() {
+  const seneca = this;
+  const plugin = 'cd-profiles';
+  const badgeData = JSON.parse(fs.readFileSync(`${__dirname}/../data/badgeData.json`, 'utf8'));
 
-module.exports = function(options) {
-  var seneca = this;
-  var plugin = 'cd-profiles';
-  var badgeData = JSON.parse(fs.readFileSync(__dirname + '/../data/badgeData.json', 'utf8'));
+  seneca.add({ role: plugin, cmd: 'list' }, cmdList);
 
-  seneca.add({role: plugin, cmd: 'list'}, cmd_list);
-
-  function cmd_list(args, done) {
-    done(null, [{badges: badgeData}]);
+  function cmdList(args, done) {
+    done(null, [{ badges: badgeData }]);
   }
 
   return {
-    name: plugin
+    name: plugin,
   };
-};
+}
+module.exports = cdProfile;
