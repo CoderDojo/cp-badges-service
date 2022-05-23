@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/CoderDojo/cp-badges-service.git"
+    "url": "https://github.com/CoderDojo/cp-badges-service.git"
   },
   "author": "CoderDojo Foundation",
   "license": "MIT",
@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "async": "1.3.0",
-    "cp-logs-lib": "git://github.com/CoderDojo/cp-logs-lib#1.1.0",
-    "cp-permissions-plugin": "git://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
+    "cp-logs-lib": "https://github.com/CoderDojo/cp-logs-lib#1.1.0",
+    "cp-permissions-plugin": "https://github.com/CoderDojo/cp-permissions-plugin#1.0.2",
     "jws": "3.0.0",
     "le_node": "1.1.0",
     "lodash": "3.7.0",
